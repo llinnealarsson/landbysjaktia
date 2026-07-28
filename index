@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+
+  <title>Landbys Jaktia – Topplista</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.48)),
+        url("bakgrund.jpg") center center / cover no-repeat fixed;
+
+      font-family: Montserrat, Arial, sans-serif;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 22px 30px 40px;
+      box-sizing: border-box;
+    }
+
+    /* =========================
+       DATUMVÄLJARE
+       ========================= */
+
+    .date-row {
+      position: absolute;
+      top: 18px;
+      left: 22px;
+      z-index: 1000;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      font-size: 16px;
+      color: white;
+    }
+
+    .date-row label {
+      font-weight: 700;
+    }
+
+    select {
+      font-size: 14px;
+      padding: 5px 9px;
+      border: none;
+      border-radius: 2px;
+      background: white;
+      color: black;
+    }
+
+    /* =========================
+       ÖVRE DEL
+       ========================= */
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      padding-top: 28px;
+    }
+
+    .left-panel {
+      flex: 1;
+      padding-top: 60px;
+    }
+
+    h1 {
+      margin: 0;
+
+      font-size: clamp(70px, 7vw, 110px);
+      font-weight: 900;
+      line-height: 0.94;
+      letter-spacing: -2px;
+
+      color: white;
+      text-align: left;
+    }
+
+    .right-panel {
+      width: 320px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      flex-shrink: 0;
+      padding-top: 45px;
+    }
+
+    .logo-img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* =========================
+       TOPPLISTA
+       ========================= */
+
+    .bottom-row {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .leaderboard-box {
+      width: 100%;
+      max-width: 1100px;
+
+      background: rgba(255, 255, 255, 0.92);
+      color: black;
+
+      padding: 25px 36px 30px;
+      box-sizing: border-box;
+    }
+
+    .leaderboard-header {
+      display: grid;
+      grid-template-columns: 70px 1fr auto;
+      align-items: center;
+      gap: 16px;
+
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .leaderboard-icon {
+      width: 50px;
+      height: 50px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .leaderboard-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .leaderboard-title {
+      font-size: 25px;
+      font-weight: 900;
+      text-align: left;
+    }
+
+    .points-title {
+      font-size: 22px;
+      font-weight: 900;
+      text-align: right;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      display: none;
+    }
+
+    td {
+      padding: 14px 0;
+      font-size: 24px;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .position-cell {
+      width: 70px;
+      font-weight: 900;
+      font-size: 26px;
+      text-align: left;
+    }
+
+    .name-cell {
+      text-align: left;
+      padding-right: 20px;
+      font-weight: 600;
+    }
+
+    .points-cell {
+      text-align: right;
+      white-space: nowrap;
+      font-weight: 900;
+      font-size: 27px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .empty-row td {
+      color: #444;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    /* Framhäv de tre bästa */
+
+    tr.place-1 .position-cell,
+    tr.place-1 .points-cell {
+      font-size: 31px;
+    }
+
+    tr.place-2 .position-cell,
+    tr.place-2 .points-cell,
+    tr.place-3 .position-cell,
+    tr.place-3 .points-cell {
+      font-size: 28px;
+    }
+
+    /* =========================
+       MOBIL OCH MINDRE SKÄRMAR
+       ========================= */
+
+    @media (max-width: 1200px) {
+      .page {
+        padding: 20px;
+      }
+
+      .top-row {
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 68px;
+      }
+
+      .right-panel {
+        width: auto;
+        padding-top: 15px;
+      }
+
+      .logo-img {
+        max-width: 230px;
+      }
+
+      .bottom-row {
+        margin-top: 40px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .page {
+        padding: 18px 12px 30px;
+      }
+
+      .date-row {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-bottom: 25px;
+      }
+
+      .top-row {
+        padding-top: 0;
+      }
+
+      .left-panel {
+        padding-top: 0;
+      }
+
+      h1 {
+        font-size: 48px;
+        letter-spacing: -1px;
+      }
+
+      .leaderboard-box {
+        padding: 18px 18px 22px;
+      }
+
+      .leaderboard-header {
+        grid-template-columns: 45px 1fr auto;
+        gap: 10px;
+      }
+
+      .leaderboard-icon {
+        width: 38px;
+        height: 38px;
+      }
+
+      .leaderboard-title {
+        font-size: 19px;
+      }
+
+      .points-title {
+        font-size: 18px;
+      }
+
+      td {
+        font-size: 18px;
+        padding: 12px 0;
+      }
+
+      .position-cell {
+        width: 45px;
+        font-size: 20px;
+      }
+
+      .points-cell {
+        font-size: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- Datumväljare -->
+    <div class="date-row">
+      <label for="dateSelect">Datum:</label>
+      <select id="dateSelect"></select>
+    </div>
+
+    <!-- Rubrik och logotyp -->
+    <div class="top-row">
+
+      <div class="left-panel">
+        <h1>Landbys Jaktia<br>Topplista</h1>
+      </div>
+
+      <div class="right-panel">
+        <img
+          class="logo-img"
+          src="landbys-jaktia-logo.png"
+          alt="Landbys Jaktia"
+        />
+      </div>
+
+    </div>
+
+    <!-- Topplista -->
+    <div class="bottom-row">
+
+      <div class="leaderboard-box">
+
+        <div class="leaderboard-header">
+
+          <div class="leaderboard-icon">
+            <img src="ikon.png" alt="" />
+          </div>
+
+          <div class="leaderboard-title">
+            Topplista
+          </div>
+
+          <div class="points-title">
+            Poäng
+          </div>
+
+        </div>
+
+        <table>
+          <tbody id="leaderboard-body"></tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // ==================================================
+    // INSTÄLLNINGAR
+    // ==================================================
+
+    // Lägg in ID-numret från det nya Google Sheet-dokumentet.
+    const SHEET_ID = "LÄGG_IN_DITT_SHEET_ID_HÄR";
+
+    // Namnet på fliken längst ner i Google Sheets.
+    const SHEET_NAME = "Formulärsvar 1";
+
+    // Hur många personer som ska visas på topplistan.
+    const MAX_RESULTS = 10;
+
+    // Hur ofta sidan ska kontrollera nya resultat.
+    // 3000 millisekunder = 3 sekunder.
+    const REFRESH_MS = 3000;
+
+    // Google Sheets gviz-adress.
+    const GVIZ_URL =
+      `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?` +
+      `sheet=${encodeURIComponent(SHEET_NAME)}&tqx=out:json`;
+
+    let allResults = [];
+    let selectedDate = null;
+    let dateSelectEl = null;
+
+    // ==================================================
+    // STARTA SIDAN
+    // ==================================================
+
+    document.addEventListener("DOMContentLoaded", () => {
+      dateSelectEl = document.getElementById("dateSelect");
+
+      dateSelectEl.addEventListener("change", () => {
+        selectedDate = dateSelectEl.value;
+        renderForDate(selectedDate);
+      });
+
+      loadData();
+
+      setInterval(loadData, REFRESH_MS);
+    });
+
+    // ==================================================
+    // HÄMTA DATA FRÅN GOOGLE SHEETS
+    // ==================================================
+
+    function loadData() {
+      fetch(GVIZ_URL + "&t=" + Date.now(), {
+        cache: "no-store"
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(
+              `Google Sheets svarade med status ${response.status}`
+            );
+          }
+
+          return response.text();
+        })
+        .then(text => {
+          /*
+           * Google gviz skickar inte tillbaka ren JSON.
+           * Därför plockas JSON-delen ut från svaret.
+           */
+          const jsonStart = text.indexOf("{");
+          const jsonEnd = text.lastIndexOf("}") + 1;
+
+          if (jsonStart === -1 || jsonEnd === 0) {
+            throw new Error("Kunde inte läsa Google Sheets-svaret.");
+          }
+
+          const jsonText = text.substring(jsonStart, jsonEnd);
+          const json = JSON.parse(jsonText);
+
+          const rows = json.table?.rows || [];
+
+          /*
+           * Google Formulärets kolumner:
+           *
+           * c[0] = tidsstämpel
+           * c[1] = namn
+           * c[2] = poäng
+           * c[3] = datum
+           */
+          const parsedResults = rows
+            .map(row => {
+              const columns = row.c || [];
+
+              const name =
+                (columns[1]?.v ?? "").toString().trim();
+
+              const pointsText =
+                (columns[2]?.v ?? "").toString().trim();
+
+              const points = parsePoints(pointsText);
+
+              const date =
+                getCellDisplayValue(columns[3]).trim();
+
+              return {
+                name: name,
+                points: points,
+                pointsText: pointsText,
+                date: date
+              };
+            })
+            .filter(result => {
+              return (
+                result.name &&
+                result.date &&
+                Number.isFinite(result.points)
+              );
+            });
+
+          allResults = parsedResults;
+
+          updateDateSelect();
+
+          if (selectedDate) {
+            renderForDate(selectedDate);
+          }
+        })
+        .catch(error => {
+          console.error("Fel vid hämtning av resultat:", error);
+          showMessage("Kunde inte hämta resultaten");
+        });
+    }
+
+    // ==================================================
+    // LÄS CELLVÄRDE
+    // ==================================================
+
+    function getCellDisplayValue(cell) {
+      if (!cell) {
+        return "";
+      }
+
+      /*
+       * f är det formaterade värdet som visas i Google Sheets.
+       * Det är användbart för exempelvis datum.
+       */
+      if (cell.f !== undefined && cell.f !== null) {
+        return cell.f.toString();
+      }
+
+      if (cell.v !== undefined && cell.v !== null) {
+        return cell.v.toString();
+      }
+
+      return "";
+    }
+
+    // ==================================================
+    // GÖR OM POÄNG TILL ETT TAL
+    // ==================================================
+
+    function parsePoints(value) {
+      if (value === null || value === undefined) {
+        return NaN;
+      }
+
+      /*
+       * Tillåter både:
+       * 25
+       * 25,5
+       * 25.5
+       *
+       * Mellanslag och eventuell texten "poäng" tas bort.
+       */
+      const cleanedValue = value
+        .toString()
+        .toLowerCase()
+        .replace("poäng", "")
+        .replace(/\s/g, "")
+        .replace(",", ".")
+        .trim();
+
+      return Number(cleanedValue);
+    }
+
+    // ==================================================
+    // UPPDATERA DATUMVÄLJAREN
+    // ==================================================
+
+    function updateDateSelect() {
+      const dates = [
+        ...new Set(
+          allResults
+            .map(result => result.date)
+            .filter(Boolean)
+        )
+      ];
+
+      /*
+       * Senast inkomna datum hamnar sist i listan.
+       * Listan sorteras med svensk sortering.
+       */
+      dates.sort((a, b) =>
+        a.localeCompare(b, "sv", {
+          numeric: true
+        })
+      );
+
+      const previousDate = selectedDate;
+
+      dateSelectEl.innerHTML = "";
+
+      if (dates.length === 0) {
+        selectedDate = null;
+
+        const option = document.createElement("option");
+        option.value = "";
+        option.textContent = "Inga datum";
+        dateSelectEl.appendChild(option);
+
+        showMessage("Inga resultat");
+        return;
+      }
+
+      dates.forEach(date => {
+        const option = document.createElement("option");
+
+        option.value = date;
+        option.textContent = date;
+
+        dateSelectEl.appendChild(option);
+      });
+
+      if (previousDate && dates.includes(previousDate)) {
+        selectedDate = previousDate;
+      } else {
+        selectedDate = dates[dates.length - 1];
+      }
+
+      dateSelectEl.value = selectedDate;
+    }
+
+    // ==================================================
+    // VISA TOPPLISTAN FÖR VALT DATUM
+    // ==================================================
+
+    function renderForDate(date) {
+      const resultsForDate = allResults.filter(result => {
+        return result.date === date;
+      });
+
+      /*
+       * Högst poäng först.
+       *
+       * Om två personer har samma poäng sorteras de
+       * i bokstavsordning efter namn.
+       */
+      resultsForDate.sort((a, b) => {
+        if (b.points !== a.points) {
+          return b.points - a.points;
+        }
+
+        return a.name.localeCompare(b.name, "sv");
+      });
+
+      const topResults = resultsForDate.slice(0, MAX_RESULTS);
+
+      fillLeaderboard(topResults);
+    }
+
+    // ==================================================
+    // SKAPA RADERNA I TOPPLISTAN
+    // ==================================================
+
+    function fillLeaderboard(results) {
+      const tbody = document.getElementById("leaderboard-body");
+
+      tbody.innerHTML = "";
+
+      if (!results.length) {
+        showMessage("Inga resultat");
+        return;
+      }
+
+      results.forEach((result, index) => {
+        const position = index + 1;
+
+        const row = document.createElement("tr");
+
+        if (position <= 3) {
+          row.classList.add(`place-${position}`);
+        }
+
+        const positionCell = document.createElement("td");
+        const nameCell = document.createElement("td");
+        const pointsCell = document.createElement("td");
+
+        positionCell.className = "position-cell";
+        nameCell.className = "name-cell";
+        pointsCell.className = "points-cell";
+
+        positionCell.textContent = `${position}.`;
+        nameCell.textContent = result.name;
+        pointsCell.textContent = formatPoints(result.points);
+
+        row.appendChild(positionCell);
+        row.appendChild(nameCell);
+        row.appendChild(pointsCell);
+
+        tbody.appendChild(row);
+      });
+    }
+
+    // ==================================================
+    // FORMATERA POÄNG
+    // ==================================================
+
+    function formatPoints(points) {
+      /*
+       * Heltal visas exempelvis som 25.
+       * Decimaltal visas exempelvis som 25,5.
+       */
+      return points.toLocaleString("sv-SE", {
+        maximumFractionDigits: 2
+      });
+    }
+
+    // ==================================================
+    // VISA FELMEDDELANDE ELLER TOM TOPPLISTA
+    // ==================================================
+
+    function showMessage(message) {
+      const tbody = document.getElementById("leaderboard-body");
+
+      tbody.innerHTML = `
+        <tr class="empty-row">
+          <td colspan="3">${message}</td>
+        </tr>
+      `;
+    }
+  </script>
+</body>
+</html>
