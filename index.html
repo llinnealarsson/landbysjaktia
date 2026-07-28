@@ -5,7 +5,10 @@
 
   <title>Landbys Jaktia – Topplista</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <style>
     html,
@@ -19,8 +22,8 @@
     body {
       background:
         linear-gradient(
-          rgba(0, 0, 0, 0.36),
-          rgba(0, 0, 0, 0.36)
+          rgba(0, 0, 0, 0.42),
+          rgba(0, 0, 0, 0.42)
         ),
         url("bakgrund.jpg") center center / cover no-repeat fixed;
 
@@ -48,12 +51,12 @@
       left: 22px;
       z-index: 1000;
 
+      font-size: 16px;
+      color: white;
+
       display: flex;
       align-items: center;
       gap: 8px;
-
-      font-size: 16px;
-      color: white;
     }
 
     .date-row label {
@@ -63,16 +66,12 @@
     select {
       font-size: 14px;
       padding: 4px 8px;
-
       border: none;
       border-radius: 0;
-
-      background: white;
-      color: black;
     }
 
     /* =========================
-       ÖVRE DEL
+       RUBRIK
        ========================= */
 
     .top-row {
@@ -80,7 +79,6 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 40px;
-
       padding-top: 28px;
     }
 
@@ -100,77 +98,40 @@
       text-align: left;
     }
 
-    .right-panel {
-      width: 320px;
-
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-start;
-      flex-shrink: 0;
-
-      padding-top: 60px;
-    }
-
-    .logo-img {
-      width: 100%;
-      max-width: 280px;
-      height: auto;
-
-      display: block;
-      object-fit: contain;
-    }
-
     /* =========================
        TOPPLISTA
        ========================= */
 
     .bottom-row {
       margin-top: 90px;
-      width: 100%;
     }
 
     .leaderboard-box {
       width: 100%;
       min-height: 420px;
 
-      background: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.90);
       color: black;
 
       padding: 22px 28px 24px 28px;
       box-sizing: border-box;
-
-      box-shadow: none;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
     }
 
     .leaderboard-header {
       display: grid;
-      grid-template-columns: 60px 1fr auto;
+      grid-template-columns: 70px 1fr auto;
       align-items: center;
-      gap: 14px;
-
+      gap: 12px;
       margin-bottom: 14px;
     }
 
-    .leaderboard-icon {
-      width: 42px;
-      height: 42px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .position-title {
+      font-size: 20px;
+      font-weight: 800;
+      text-align: left;
     }
 
-    .leaderboard-icon img {
-      width: 100%;
-      height: 100%;
-
-      object-fit: contain;
-      display: block;
-    }
-
-    .leaderboard-title {
+    .name-title {
       font-size: 20px;
       font-weight: 800;
       text-align: left;
@@ -198,9 +159,9 @@
     }
 
     .position-cell {
-      width: 60px;
+      width: 70px;
       text-align: left;
-      font-weight: 800;
+      font-weight: 700;
     }
 
     .name-cell {
@@ -217,8 +178,7 @@
 
     .empty-row td {
       color: #444;
-      text-align: center;
-      padding: 40px 0;
+      text-align: left;
     }
 
     /* =========================
@@ -238,15 +198,6 @@
         font-size: 70px;
       }
 
-      .right-panel {
-        width: auto;
-        padding-top: 20px;
-      }
-
-      .logo-img {
-        max-width: 230px;
-      }
-
       .bottom-row {
         margin-top: 40px;
       }
@@ -262,16 +213,20 @@
 
     @media (max-width: 650px) {
       body {
+        /*
+         * Fixed background kan fungera dåligt på mobil.
+         * Resten är samma som på dator.
+         */
         background:
           linear-gradient(
-            rgba(0, 0, 0, 0.36),
-            rgba(0, 0, 0, 0.36)
+            rgba(0, 0, 0, 0.42),
+            rgba(0, 0, 0, 0.42)
           ),
           url("bakgrund.jpg") center center / cover no-repeat;
       }
 
       .page {
-        padding: 18px 12px 30px;
+        padding: 18px 12px 28px 12px;
       }
 
       .date-row {
@@ -294,16 +249,8 @@
         letter-spacing: -1px;
       }
 
-      .right-panel {
-        padding-top: 5px;
-      }
-
-      .logo-img {
-        max-width: 190px;
-      }
-
       .bottom-row {
-        margin-top: 30px;
+        margin-top: 35px;
       }
 
       .leaderboard-box {
@@ -315,22 +262,15 @@
         gap: 10px;
       }
 
-      .leaderboard-icon {
-        width: 38px;
-        height: 38px;
-      }
-
-      .leaderboard-title {
-        font-size: 19px;
-      }
-
+      .position-title,
+      .name-title,
       .points-title {
         font-size: 18px;
       }
 
       td {
         font-size: 18px;
-        padding: 12px 0;
+        padding: 11px 0;
       }
 
       .position-cell {
@@ -343,48 +283,31 @@
 <body>
   <div class="page">
 
+    <!-- Datumväljare -->
     <div class="date-row">
       <label for="dateSelect">Datum:</label>
       <select id="dateSelect"></select>
     </div>
 
+    <!-- Rubrik -->
     <div class="top-row">
-
       <div class="left-panel">
         <h1>
           Landbys Jaktia<br>
           Topplista
         </h1>
       </div>
-
-      <div class="right-panel">
-        <img
-          class="logo-img"
-          src="landbys-jaktia-logo.png"
-          alt="Landbys Jaktia"
-        >
-      </div>
-
     </div>
 
+    <!-- Topplista -->
     <div class="bottom-row">
 
       <div class="leaderboard-box">
 
         <div class="leaderboard-header">
-
-          <div class="leaderboard-icon">
-            <img src="ikon.png" alt="">
-          </div>
-
-          <div class="leaderboard-title">
-            Topplista
-          </div>
-
-          <div class="points-title">
-            Poäng
-          </div>
-
+          <div class="position-title">Plats</div>
+          <div class="name-title">Namn</div>
+          <div class="points-title">Poäng</div>
         </div>
 
         <table>
@@ -398,9 +321,7 @@
   </div>
 
   <script>
-    // ==================================================
-    // INSTÄLLNINGAR
-    // ==================================================
+    // ======= KONSTANTER =======
 
     const SHEET_ID =
       "1cSFFcWBlVxdjf6l6B2DTpj3gRkcqJ2q6ji7GE2P-P1Q";
@@ -419,9 +340,7 @@
     let selectedDate = null;
     let dateSelectEl = null;
 
-    // ==================================================
-    // STARTA SIDAN
-    // ==================================================
+    // ======= STARTA SIDAN =======
 
     document.addEventListener("DOMContentLoaded", () => {
       dateSelectEl = document.getElementById("dateSelect");
@@ -436,14 +355,15 @@
       setInterval(loadData, REFRESH_MS);
     });
 
-    // ==================================================
-    // HÄMTA DATA FRÅN GOOGLE SHEETS
-    // ==================================================
+    // ======= HÄMTA DATA FRÅN GOOGLE SHEETS =======
 
     function loadData() {
-      fetch(GVIZ_URL + "&t=" + Date.now(), {
-        cache: "no-store"
-      })
+      fetch(
+        GVIZ_URL + "&t=" + Date.now(),
+        {
+          cache: "no-store"
+        }
+      )
         .then(response => {
           if (!response.ok) {
             throw new Error(
@@ -457,7 +377,10 @@
           const jsonStart = text.indexOf("{");
           const jsonEnd = text.lastIndexOf("}") + 1;
 
-          if (jsonStart === -1 || jsonEnd <= jsonStart) {
+          if (
+            jsonStart === -1 ||
+            jsonEnd <= jsonStart
+          ) {
             throw new Error(
               "Kunde inte läsa Google Sheets-svaret."
             );
@@ -469,9 +392,12 @@
           );
 
           const json = JSON.parse(jsonText);
+
           const rows = json.table?.rows || [];
 
           /*
+           * Google Sheets:
+           *
            * c[0] = Tidsstämpel
            * c[1] = Namn
            * c[2] = Poäng
@@ -483,16 +409,22 @@
               const columns = row.c || [];
 
               const name =
-                getCellDisplayValue(columns[1]).trim();
+                getCellDisplayValue(
+                  columns[1]
+                ).trim();
 
               const pointsText =
-                getCellDisplayValue(columns[2]).trim();
+                getCellDisplayValue(
+                  columns[2]
+                ).trim();
 
               const points =
                 parsePoints(pointsText);
 
               const date =
-                getCellDisplayValue(columns[3]).trim();
+                getCellDisplayValue(
+                  columns[3]
+                ).trim();
 
               return {
                 name,
@@ -528,14 +460,17 @@
         });
     }
 
-    // ==================================================
-    // LÄS CELLVÄRDE
-    // ==================================================
+    // ======= LÄS CELLVÄRDE =======
 
     function getCellDisplayValue(cell) {
       if (!cell) {
         return "";
       }
+
+      /*
+       * f är det formaterade värdet.
+       * Det används exempelvis för datum.
+       */
 
       if (
         cell.f !== undefined &&
@@ -554,9 +489,7 @@
       return "";
     }
 
-    // ==================================================
-    // GÖR OM POÄNG TILL TAL
-    // ==================================================
+    // ======= GÖR OM POÄNG TILL SIFFRA =======
 
     function parsePoints(value) {
       if (
@@ -577,9 +510,7 @@
       return Number(cleanedValue);
     }
 
-    // ==================================================
-    // DATUMVÄLJARE
-    // ==================================================
+    // ======= DATUMVÄLJARE =======
 
     function updateDateSelect() {
       const dates = [
@@ -608,6 +539,7 @@
         dateSelectEl.appendChild(option);
 
         showMessage("Inga resultat");
+
         return;
       }
 
@@ -627,15 +559,14 @@
       ) {
         selectedDate = previousDate;
       } else {
-        selectedDate = dates[dates.length - 1];
+        selectedDate =
+          dates[dates.length - 1];
       }
 
       dateSelectEl.value = selectedDate;
     }
 
-    // ==================================================
-    // SORTERA DATUM
-    // ==================================================
+    // ======= SORTERA DATUM =======
 
     function compareDates(a, b) {
       const dateA = parseDate(a);
@@ -645,18 +576,27 @@
         return dateA - dateB;
       }
 
-      return a.localeCompare(b, "sv", {
-        numeric: true
-      });
+      return a.localeCompare(
+        b,
+        "sv",
+        {
+          numeric: true
+        }
+      );
     }
 
     function parseDate(value) {
-      const text = value.toString().trim();
+      const text =
+        value.toString().trim();
 
-      const isoMatch =
-        text.match(
-          /^(\d{4})-(\d{1,2})-(\d{1,2})$/
-        );
+      /*
+       * Exempel:
+       * 2026-07-28
+       */
+
+      const isoMatch = text.match(
+        /^(\d{4})-(\d{1,2})-(\d{1,2})$/
+      );
 
       if (isoMatch) {
         return new Date(
@@ -666,10 +606,16 @@
         );
       }
 
-      const swedishMatch =
-        text.match(
-          /^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/
-        );
+      /*
+       * Exempel:
+       * 28/07/2026
+       * 28.07.2026
+       * 28-07-2026
+       */
+
+      const swedishMatch = text.match(
+        /^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/
+      );
 
       if (swedishMatch) {
         return new Date(
@@ -682,15 +628,20 @@
       return null;
     }
 
-    // ==================================================
-    // VISA RESULTAT FÖR VALT DATUM
-    // ==================================================
+    // ======= VISA RESULTAT FÖR VALT DATUM =======
 
     function renderForDate(date) {
       const resultsForDate =
         allResults.filter(result => {
           return result.date === date;
         });
+
+      /*
+       * Högst poäng först.
+       *
+       * Vid samma poäng sorteras namnen
+       * i bokstavsordning.
+       */
 
       resultsForDate.sort((a, b) => {
         if (b.points !== a.points) {
@@ -712,9 +663,7 @@
       fillLeaderboard(topResults);
     }
 
-    // ==================================================
-    // SKAPA TABELLRADER
-    // ==================================================
+    // ======= SKAPA TOPPLISTAN =======
 
     function fillLeaderboard(results) {
       const tbody =
@@ -729,50 +678,58 @@
         return;
       }
 
-      results.forEach((result, index) => {
-        const position = index + 1;
+      results.forEach(
+        (result, index) => {
+          const position = index + 1;
 
-        const row =
-          document.createElement("tr");
+          const row =
+            document.createElement("tr");
 
-        const positionCell =
-          document.createElement("td");
+          const positionCell =
+            document.createElement("td");
 
-        const nameCell =
-          document.createElement("td");
+          const nameCell =
+            document.createElement("td");
 
-        const pointsCell =
-          document.createElement("td");
+          const pointsCell =
+            document.createElement("td");
 
-        positionCell.className =
-          "position-cell";
+          positionCell.className =
+            "position-cell";
 
-        nameCell.className =
-          "name-cell";
+          nameCell.className =
+            "name-cell";
 
-        pointsCell.className =
-          "points-cell";
+          pointsCell.className =
+            "points-cell";
 
-        positionCell.textContent =
-          `${position}.`;
+          positionCell.textContent =
+            `${position}.`;
 
-        nameCell.textContent =
-          result.name;
+          nameCell.textContent =
+            result.name;
 
-        pointsCell.textContent =
-          formatPoints(result.points);
+          pointsCell.textContent =
+            formatPoints(result.points);
 
-        row.appendChild(positionCell);
-        row.appendChild(nameCell);
-        row.appendChild(pointsCell);
+          row.appendChild(
+            positionCell
+          );
 
-        tbody.appendChild(row);
-      });
+          row.appendChild(
+            nameCell
+          );
+
+          row.appendChild(
+            pointsCell
+          );
+
+          tbody.appendChild(row);
+        }
+      );
     }
 
-    // ==================================================
-    // FORMATERA POÄNG
-    // ==================================================
+    // ======= FORMATERA POÄNG =======
 
     function formatPoints(points) {
       return points.toLocaleString(
@@ -783,9 +740,7 @@
       );
     }
 
-    // ==================================================
-    // VISA MEDDELANDE
-    // ==================================================
+    // ======= VISA MEDDELANDE =======
 
     function showMessage(message) {
       const tbody =
