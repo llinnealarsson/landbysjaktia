@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <title>Landbys Jaktia – Topplista</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     html,
@@ -18,7 +18,10 @@
 
     body {
       background:
-        linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.48)),
+        linear-gradient(
+          rgba(0, 0, 0, 0.42),
+          rgba(0, 0, 0, 0.42)
+        ),
         url("bakgrund.jpg") center center / cover no-repeat fixed;
 
       font-family: Montserrat, Arial, sans-serif;
@@ -54,15 +57,19 @@
 
     .date-row label {
       font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
     }
 
     select {
       font-size: 14px;
       padding: 5px 9px;
+
       border: none;
       border-radius: 2px;
+
       background: white;
       color: black;
+      cursor: pointer;
     }
 
     /* =========================
@@ -74,6 +81,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 40px;
+
       padding-top: 28px;
     }
 
@@ -92,14 +100,20 @@
 
       color: white;
       text-align: left;
+
+      text-shadow:
+        0 3px 16px rgba(0, 0, 0, 0.45),
+        0 1px 3px rgba(0, 0, 0, 0.65);
     }
 
     .right-panel {
       width: 320px;
+
       display: flex;
       justify-content: flex-end;
       align-items: flex-start;
       flex-shrink: 0;
+
       padding-top: 45px;
     }
 
@@ -107,8 +121,11 @@
       width: 100%;
       max-width: 280px;
       height: auto;
+
       display: block;
       object-fit: contain;
+
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.28));
     }
 
     /* =========================
@@ -117,6 +134,7 @@
 
     .bottom-row {
       margin-top: 80px;
+
       display: flex;
       justify-content: center;
     }
@@ -130,6 +148,10 @@
 
       padding: 25px 36px 30px;
       box-sizing: border-box;
+
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
     }
 
     .leaderboard-header {
@@ -154,6 +176,7 @@
     .leaderboard-icon img {
       width: 100%;
       height: 100%;
+
       object-fit: contain;
       display: block;
     }
@@ -181,9 +204,11 @@
 
     td {
       padding: 14px 0;
+
       font-size: 24px;
       vertical-align: middle;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     tr:last-child td {
@@ -192,6 +217,7 @@
 
     .position-cell {
       width: 70px;
+
       font-weight: 900;
       font-size: 26px;
       text-align: left;
@@ -206,6 +232,7 @@
     .points-cell {
       text-align: right;
       white-space: nowrap;
+
       font-weight: 900;
       font-size: 27px;
       font-variant-numeric: tabular-nums;
@@ -232,7 +259,7 @@
     }
 
     /* =========================
-       MOBIL OCH MINDRE SKÄRMAR
+       MINDRE SKÄRMAR
        ========================= */
 
     @media (max-width: 1200px) {
@@ -262,7 +289,20 @@
       }
     }
 
+    /* =========================
+       MOBIL
+       ========================= */
+
     @media (max-width: 650px) {
+      body {
+        background:
+          linear-gradient(
+            rgba(0, 0, 0, 0.42),
+            rgba(0, 0, 0, 0.42)
+          ),
+          url("bakgrund.jpg") center center / cover no-repeat;
+      }
+
       .page {
         padding: 18px 12px 30px;
       }
@@ -285,6 +325,14 @@
       h1 {
         font-size: 48px;
         letter-spacing: -1px;
+      }
+
+      .right-panel {
+        padding-top: 5px;
+      }
+
+      .logo-img {
+        max-width: 190px;
       }
 
       .leaderboard-box {
@@ -339,7 +387,10 @@
     <div class="top-row">
 
       <div class="left-panel">
-        <h1>Landbys Jaktia<br>Topplista</h1>
+        <h1>
+          Landbys Jaktia<br>
+          Topplista
+        </h1>
       </div>
 
       <div class="right-panel">
@@ -347,7 +398,7 @@
           class="logo-img"
           src="landbys-jaktia-logo.png"
           alt="Landbys Jaktia"
-        />
+        >
       </div>
 
     </div>
@@ -360,7 +411,7 @@
         <div class="leaderboard-header">
 
           <div class="leaderboard-icon">
-            <img src="ikon.png" alt="" />
+            <img src="ikon.png" alt="">
           </div>
 
           <div class="leaderboard-title">
@@ -388,20 +439,17 @@
     // INSTÄLLNINGAR
     // ==================================================
 
-    // Lägg in ID-numret från det nya Google Sheet-dokumentet.
-    const SHEET_ID = "1cSFFcWBlVxdjf6l6B2DTpj3gRkcqJ2q6ji7GE2P-P1Q";
+    const SHEET_ID =
+      "1cSFFcWBlVxdjf6l6B2DTpj3gRkcqJ2q6ji7GE2P-P1Q";
 
-    // Namnet på fliken längst ner i Google Sheets.
     const SHEET_NAME = "Formulärsvar 1";
 
-    // Hur många personer som ska visas på topplistan.
+    // Antal resultat som visas.
     const MAX_RESULTS = 10;
 
-    // Hur ofta sidan ska kontrollera nya resultat.
-    // 3000 millisekunder = 3 sekunder.
+    // Uppdatera var tredje sekund.
     const REFRESH_MS = 3000;
 
-    // Google Sheets gviz-adress.
     const GVIZ_URL =
       `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?` +
       `sheet=${encodeURIComponent(SHEET_NAME)}&tqx=out:json`;
@@ -445,50 +493,52 @@
           return response.text();
         })
         .then(text => {
-          /*
-           * Google gviz skickar inte tillbaka ren JSON.
-           * Därför plockas JSON-delen ut från svaret.
-           */
           const jsonStart = text.indexOf("{");
           const jsonEnd = text.lastIndexOf("}") + 1;
 
-          if (jsonStart === -1 || jsonEnd === 0) {
-            throw new Error("Kunde inte läsa Google Sheets-svaret.");
+          if (jsonStart === -1 || jsonEnd <= jsonStart) {
+            throw new Error(
+              "Kunde inte läsa Google Sheets-svaret."
+            );
           }
 
-          const jsonText = text.substring(jsonStart, jsonEnd);
-          const json = JSON.parse(jsonText);
+          const jsonText = text.substring(
+            jsonStart,
+            jsonEnd
+          );
 
+          const json = JSON.parse(jsonText);
           const rows = json.table?.rows || [];
 
           /*
-           * Google Formulärets kolumner:
+           * Kolumner i kalkylarket:
            *
-           * c[0] = tidsstämpel
-           * c[1] = namn
-           * c[2] = poäng
-           * c[3] = datum
+           * c[0] = Tidsstämpel
+           * c[1] = Namn
+           * c[2] = Poäng
+           * c[3] = Datum
            */
+
           const parsedResults = rows
             .map(row => {
               const columns = row.c || [];
 
               const name =
-                (columns[1]?.v ?? "").toString().trim();
+                getCellDisplayValue(columns[1]).trim();
 
               const pointsText =
-                (columns[2]?.v ?? "").toString().trim();
+                getCellDisplayValue(columns[2]).trim();
 
-              const points = parsePoints(pointsText);
+              const points =
+                parsePoints(pointsText);
 
               const date =
                 getCellDisplayValue(columns[3]).trim();
 
               return {
-                name: name,
-                points: points,
-                pointsText: pointsText,
-                date: date
+                name,
+                points,
+                date
               };
             })
             .filter(result => {
@@ -508,13 +558,19 @@
           }
         })
         .catch(error => {
-          console.error("Fel vid hämtning av resultat:", error);
-          showMessage("Kunde inte hämta resultaten");
+          console.error(
+            "Fel vid hämtning av resultat:",
+            error
+          );
+
+          showMessage(
+            "Kunde inte hämta resultaten"
+          );
         });
     }
 
     // ==================================================
-    // LÄS CELLVÄRDE
+    // LÄS VÄRDET FRÅN EN GOOGLE SHEETS-CELL
     // ==================================================
 
     function getCellDisplayValue(cell) {
@@ -523,14 +579,21 @@
       }
 
       /*
-       * f är det formaterade värdet som visas i Google Sheets.
-       * Det är användbart för exempelvis datum.
+       * f = det formaterade värdet.
+       * Bra för bland annat datum.
        */
-      if (cell.f !== undefined && cell.f !== null) {
+
+      if (
+        cell.f !== undefined &&
+        cell.f !== null
+      ) {
         return cell.f.toString();
       }
 
-      if (cell.v !== undefined && cell.v !== null) {
+      if (
+        cell.v !== undefined &&
+        cell.v !== null
+      ) {
         return cell.v.toString();
       }
 
@@ -538,26 +601,21 @@
     }
 
     // ==================================================
-    // GÖR OM POÄNG TILL ETT TAL
+    // GÖR OM POÄNG TILL TAL
     // ==================================================
 
     function parsePoints(value) {
-      if (value === null || value === undefined) {
+      if (
+        value === null ||
+        value === undefined
+      ) {
         return NaN;
       }
 
-      /*
-       * Tillåter både:
-       * 25
-       * 25,5
-       * 25.5
-       *
-       * Mellanslag och eventuell texten "poäng" tas bort.
-       */
       const cleanedValue = value
         .toString()
         .toLowerCase()
-        .replace("poäng", "")
+        .replace(/poäng/g, "")
         .replace(/\s/g, "")
         .replace(",", ".")
         .trim();
@@ -578,15 +636,7 @@
         )
       ];
 
-      /*
-       * Senast inkomna datum hamnar sist i listan.
-       * Listan sorteras med svensk sortering.
-       */
-      dates.sort((a, b) =>
-        a.localeCompare(b, "sv", {
-          numeric: true
-        })
-      );
+      dates.sort(compareDates);
 
       const previousDate = selectedDate;
 
@@ -595,9 +645,12 @@
       if (dates.length === 0) {
         selectedDate = null;
 
-        const option = document.createElement("option");
+        const option =
+          document.createElement("option");
+
         option.value = "";
         option.textContent = "Inga datum";
+
         dateSelectEl.appendChild(option);
 
         showMessage("Inga resultat");
@@ -605,7 +658,8 @@
       }
 
       dates.forEach(date => {
-        const option = document.createElement("option");
+        const option =
+          document.createElement("option");
 
         option.value = date;
         option.textContent = date;
@@ -613,13 +667,73 @@
         dateSelectEl.appendChild(option);
       });
 
-      if (previousDate && dates.includes(previousDate)) {
+      if (
+        previousDate &&
+        dates.includes(previousDate)
+      ) {
         selectedDate = previousDate;
       } else {
-        selectedDate = dates[dates.length - 1];
+        selectedDate =
+          dates[dates.length - 1];
       }
 
       dateSelectEl.value = selectedDate;
+    }
+
+    // ==================================================
+    // SORTERA DATUM
+    // ==================================================
+
+    function compareDates(a, b) {
+      const dateA = parseSwedishDate(a);
+      const dateB = parseSwedishDate(b);
+
+      if (dateA && dateB) {
+        return dateA - dateB;
+      }
+
+      return a.localeCompare(b, "sv", {
+        numeric: true
+      });
+    }
+
+    function parseSwedishDate(value) {
+      /*
+       * Hanterar bland annat:
+       * 2026-07-28
+       * 28/07/2026
+       * 28/7/2026
+       */
+
+      const text = value.toString().trim();
+
+      const isoMatch =
+        text.match(
+          /^(\d{4})-(\d{1,2})-(\d{1,2})$/
+        );
+
+      if (isoMatch) {
+        return new Date(
+          Number(isoMatch[1]),
+          Number(isoMatch[2]) - 1,
+          Number(isoMatch[3])
+        );
+      }
+
+      const swedishMatch =
+        text.match(
+          /^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/
+        );
+
+      if (swedishMatch) {
+        return new Date(
+          Number(swedishMatch[3]),
+          Number(swedishMatch[2]) - 1,
+          Number(swedishMatch[1])
+        );
+      }
+
+      return null;
     }
 
     // ==================================================
@@ -627,35 +741,45 @@
     // ==================================================
 
     function renderForDate(date) {
-      const resultsForDate = allResults.filter(result => {
-        return result.date === date;
-      });
+      const resultsForDate =
+        allResults.filter(result => {
+          return result.date === date;
+        });
 
       /*
        * Högst poäng först.
-       *
-       * Om två personer har samma poäng sorteras de
-       * i bokstavsordning efter namn.
+       * Samma poäng sorteras efter namn.
        */
+
       resultsForDate.sort((a, b) => {
         if (b.points !== a.points) {
           return b.points - a.points;
         }
 
-        return a.name.localeCompare(b.name, "sv");
+        return a.name.localeCompare(
+          b.name,
+          "sv"
+        );
       });
 
-      const topResults = resultsForDate.slice(0, MAX_RESULTS);
+      const topResults =
+        resultsForDate.slice(
+          0,
+          MAX_RESULTS
+        );
 
       fillLeaderboard(topResults);
     }
 
     // ==================================================
-    // SKAPA RADERNA I TOPPLISTAN
+    // SKAPA TOPPLISTANS RADER
     // ==================================================
 
     function fillLeaderboard(results) {
-      const tbody = document.getElementById("leaderboard-body");
+      const tbody =
+        document.getElementById(
+          "leaderboard-body"
+        );
 
       tbody.innerHTML = "";
 
@@ -667,23 +791,41 @@
       results.forEach((result, index) => {
         const position = index + 1;
 
-        const row = document.createElement("tr");
+        const row =
+          document.createElement("tr");
 
         if (position <= 3) {
-          row.classList.add(`place-${position}`);
+          row.classList.add(
+            `place-${position}`
+          );
         }
 
-        const positionCell = document.createElement("td");
-        const nameCell = document.createElement("td");
-        const pointsCell = document.createElement("td");
+        const positionCell =
+          document.createElement("td");
 
-        positionCell.className = "position-cell";
-        nameCell.className = "name-cell";
-        pointsCell.className = "points-cell";
+        const nameCell =
+          document.createElement("td");
 
-        positionCell.textContent = `${position}.`;
-        nameCell.textContent = result.name;
-        pointsCell.textContent = formatPoints(result.points);
+        const pointsCell =
+          document.createElement("td");
+
+        positionCell.className =
+          "position-cell";
+
+        nameCell.className =
+          "name-cell";
+
+        pointsCell.className =
+          "points-cell";
+
+        positionCell.textContent =
+          `${position}.`;
+
+        nameCell.textContent =
+          result.name;
+
+        pointsCell.textContent =
+          formatPoints(result.points);
 
         row.appendChild(positionCell);
         row.appendChild(nameCell);
@@ -698,21 +840,23 @@
     // ==================================================
 
     function formatPoints(points) {
-      /*
-       * Heltal visas exempelvis som 25.
-       * Decimaltal visas exempelvis som 25,5.
-       */
-      return points.toLocaleString("sv-SE", {
-        maximumFractionDigits: 2
-      });
+      return points.toLocaleString(
+        "sv-SE",
+        {
+          maximumFractionDigits: 2
+        }
+      );
     }
 
     // ==================================================
-    // VISA FELMEDDELANDE ELLER TOM TOPPLISTA
+    // VISA MEDDELANDE
     // ==================================================
 
     function showMessage(message) {
-      const tbody = document.getElementById("leaderboard-body");
+      const tbody =
+        document.getElementById(
+          "leaderboard-body"
+        );
 
       tbody.innerHTML = `
         <tr class="empty-row">
