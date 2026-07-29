@@ -87,11 +87,30 @@
       padding-top: 60px;
     }
 
+    .right-panel {
+  width: 330px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-shrink: 0;
+  padding-top: 55px;
+}
+
+.logo-img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+  
+
 h1 {
   font-family: "Montserrat", Arial, sans-serif;
-  font-size: clamp(72px, 7vw, 110px);
+  font-size: clamp(58px, 5.8vw, 90px);
   font-weight: 900;
-  line-height: 0.94;
+  line-height: 0.98;
   letter-spacing: -3px;
   text-transform: uppercase;
   margin: 0;
@@ -292,14 +311,24 @@ h1 {
     </div>
 
     <!-- Rubrik -->
-    <div class="top-row">
-      <div class="left-panel">
-        <h1>
-          Provskjut i vår<br>
-          skyttesimulator!
-        </h1>
-      </div>
-    </div>
+   <div class="top-row">
+
+  <div class="left-panel">
+    <h1>
+      PROVSKJUT I VÅR<br>
+      SKYTTESIMULATOR!
+    </h1>
+  </div>
+
+  <div class="right-panel">
+    <img
+      class="logo-img"
+      src="landbys-logo.png"
+      alt="Landbys Jaktia"
+    >
+  </div>
+
+</div>
 
     <!-- Topplista -->
     <div class="bottom-row">
