@@ -87,22 +87,21 @@
       padding-top: 60px;
     }
 
-    .right-panel {
-  width: 430px;
+.right-panel {
+  width: 440px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
   flex-shrink: 0;
-  padding-top: 55px;
+  padding-top: 48px;
 }
 
 .logo-img {
   width: 100%;
-  max-width: 440px;
+  max-width: 430px;
   height: auto;
   display: block;
   object-fit: contain;
-
   mix-blend-mode: multiply;
 }
 
@@ -110,13 +109,13 @@
 
 h1 {
   font-family: "Montserrat", Arial, sans-serif;
-  font-size: clamp(48px, 4.8vw, 76px);
+  font-size: clamp(52px, 5.2vw, 82px);
   font-weight: 900;
-  line-height: 0.98;
+  line-height: 0.96;
   letter-spacing: -2px;
   text-transform: uppercase;
   margin: 0;
-  color: #F2E7D5;
+  color: #ffffff;
   text-align: left;
 }
 
@@ -125,17 +124,20 @@ h1 {
        ========================= */
 
     .bottom-row {
-  margin-top: 90px;
+  margin-top: 60px;
 }
 .leaderboard-box {
   width: 100%;
-  min-height: 420px;
+  min-height: 0;
 
-  background: rgba(255, 255, 255, 0.80);
+  background: rgba(255, 255, 255, 0.76);
   color: black;
 
   padding: 22px 28px 24px 28px;
   box-sizing: border-box;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
     .leaderboard-header {
@@ -173,11 +175,24 @@ h1 {
       display: none;
     }
 
-    td {
-      padding: 12px 0;
-      font-size: 22px;
-      vertical-align: middle;
-    }
+    .position-cell {
+  width: 70px;
+  text-align: left;
+  font-weight: 800;
+}
+
+.name-cell {
+  text-align: left;
+  padding-right: 20px;
+  font-weight: 500;
+}
+
+.points-cell {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
 
     .position-cell {
       width: 70px;
